@@ -12,8 +12,11 @@ spec:
       labels:
         app: democolgate-demo
     spec:
+      imagePullSecrets:
+        - name: ghcrsecret
       containers:
         - name: demo
           image: REPLACE_ME
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
