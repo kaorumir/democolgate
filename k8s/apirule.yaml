@@ -5,7 +5,7 @@ metadata:
 spec:
   gateway: kyma-system/kyma-gateway
   hosts:
-    - democolgate-demo.d31a7b13trial-45ip9gbw.kyma.ondemand.com
+    - democolgate-demo.c86fefc.kyma.ondemand.com
   service:
     name: democolgate-demo
     port: 80
