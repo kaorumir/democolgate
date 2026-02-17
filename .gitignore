@@ -8,7 +8,6 @@ dist/
 
 # MTA / BAS
 /mta_archives/
-resources/
 
 # Logs / temporales
 npm-debug.log*
