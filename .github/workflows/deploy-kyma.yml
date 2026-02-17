@@ -42,8 +42,6 @@ jobs:
           NS: ${{ secrets.KYMA_NAMESPACE }}
           IMG: ghcr.io/${{ github.repository }}:${{ github.sha }}
         run: |
-          kubectl create namespace ${NS} --dry-run=client -o yaml | kubectl apply -f -
-
           sed "s|image: .*|image: ${IMG}|g" k8s/deployment.yaml | kubectl apply -n ${NS} -f -
           kubectl apply -n ${NS} -f k8s/service.yaml
           kubectl apply -n ${NS} -f k8s/apirule.yaml
