@@ -10,6 +10,6 @@ spec:
     name: democolgate-demo
     port: 80
   rules:
-    - path: /
+    - path: /.*
       methods: ["GET","POST"]
       noAuth: true
