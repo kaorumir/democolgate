@@ -4,7 +4,7 @@ WORKDIR /work
 
 # instala deps
 COPY demo/package*.json ./demo/
-RUN cd demo && npm ci
+RUN cd demo && npm install
 
 # copia el código
 COPY demo ./demo

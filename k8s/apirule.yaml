@@ -5,11 +5,11 @@ metadata:
 spec:
   gateway: kyma-system/kyma-gateway
   hosts:
-    - democolgate-demo.<tu-dominio-del-cluster>
+    - democolgate-demo.d31a7b13trial-45ip9gbw.kyma.ondemand.com
   service:
     name: democolgate-demo
     port: 80
   rules:
     - path: /
-      methods: ["GET"]
+      methods: ["GET","POST"]
       noAuth: true
