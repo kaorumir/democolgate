@@ -1,0 +1,49 @@
+name: Build & Deploy to Kyma
+
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}:${{ github.sha }}
+            ghcr.io/${{ github.repository }}:latest
+
+      - name: Setup kubeconfig
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBECONFIG_B64 }}" | base64 -d > $HOME/.kube/config
+
+      - name: Deploy to Kyma
+        env:
+          NS: ${{ secrets.KYMA_NAMESPACE }}
+          IMG: ghcr.io/${{ github.repository }}:${{ github.sha }}
+        run: |
+          kubectl create namespace ${NS} --dry-run=client -o yaml | kubectl apply -f -
+
+          sed "s|image: .*|image: ${IMG}|g" k8s/deployment.yaml | kubectl apply -n ${NS} -f -
+          kubectl apply -n ${NS} -f k8s/service.yaml
+          kubectl apply -n ${NS} -f k8s/apirule.yaml
