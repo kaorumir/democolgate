@@ -1,0 +1,15 @@
+apiVersion: gateway.kyma-project.io/v2
+kind: APIRule
+metadata:
+  name: democolgate-demo
+spec:
+  gateway: kyma-system/kyma-gateway
+  hosts:
+    - democolgate-demo.<tu-dominio-del-cluster>
+  service:
+    name: democolgate-demo
+    port: 80
+  rules:
+    - path: /
+      methods: ["GET"]
+      noAuth: true

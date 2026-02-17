@@ -1,0 +1,251 @@
+<mvc:View controllerName="demo.demo.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+    <Page id="page" title="{i18n>title}">
+        <content>
+            <VBox id="_IDGenVBox1" width="100%" renderType="Bare">
+                    <!-- Encabezado con material -->
+                    <VBox id="_IDGenVBox2" class="sapUiSmallMargin">
+                        <Title id="_IDGenTitle" level="H1" text="{/MaterialNumber}" />
+                        <Text id="_IDGenText" text="{/MaterialDescription}" />
+                        <Text id="_IDGenText1" text="{/PackingInfo}" />
+                    </VBox>
+
+                    <!-- Zona de filtros -->
+                    <Panel id="_IDGenPanel1" headerText="Selection">
+                        <f:SimpleForm id="_IDGenSimpleForm"
+                            editable="true"
+                            layout="ResponsiveGridLayout"
+                            labelSpanL="3" labelSpanM="3"
+                            adjustLabelSpan="false"
+                            emptySpanL="1" emptySpanM="1"
+                            columnsL="2" columnsM="2">
+                            
+                            <Label id="_IDGenLabel1" text="Production Line" />
+                            <Select id="_IDGenSelect" selectedKey="{/Filters/ProductionLine}"
+                                                items="{
+                                path: '/Catalogs/ProductionLines'
+                            }">
+                            <core:Item id="_IDGenItem" key="{key}" text="{text}" />
+                            </Select>
+
+                            <Label id="_IDGenLabel2" text="Line Printer" />
+                            <HBox id="_IDGenHBox">
+                                <Input id="_IDGenInput" width="100%" value="{/Filters/LinePrinter}" />
+                                <CheckBox id="_IDGenCheckBox" text="Enabled" selected="{/Filters/PrinterEnabled}" />
+                            </HBox>
+
+                            <Label id="_IDGenLabel3" text="Order Number" />
+                            <Input id="_IDGenInput1" value="{/Filters/OrderNumber}" editable="true"/>
+
+                            <Label id="_IDGenLabel4" text="BatchList" />
+                            <Select id="_IDGenSelect1" selectedKey="{/Filters/BatchList}" items="{
+                                        path: '/Catalogs/BatchList'
+                                    }">
+                                <core:Item id="_IDGenItem1" key="{key}" text="{text}" />
+                            </Select>
+
+                            <Label id="_IDGenLabel5" text="" />
+                            <Button id="_IDGenButton" text="Refresh" type="Default" press="onRefresh" />
+                        </f:SimpleForm>
+                    </Panel>
+
+                    <Panel id="_IDGenPanel2" headerText="Handling Units">
+                        <Table
+                            id="huTable"
+                            items="{
+                                path: '/HUs'
+                            }">
+                            <headerToolbar>
+                                <Toolbar id="_IDGenToolbar">
+                                    <Title id="_IDGenTitle1" text="Handling Units" level="H2"/>
+                                    <ToolbarSpacer id="_IDGenToolbarSpacer"/>
+                                    <Text id="_IDGenText2" text="Count: {/HUCount}  Total: {/TotalCases}" />
+                                </Toolbar>
+                            </headerToolbar>
+
+                            <!-- Columnas -->
+                            <columns>
+                                <Column id="_IDGenColumn"><Text id="_IDGenText3" text="HU" /></Column>
+                                <Column id="_IDGenColumn1"><Text id="_IDGenText4" text="HU Created in Mill" /></Column>
+                                <Column id="_IDGenColumn2"><Text id="_IDGenText5" text="HU Created in SAP" /></Column>
+                                <Column id="_IDGenColumn3"><Text id="_IDGenText6" text="GR in SAP" /></Column>
+                                <Column id="_IDGenColumn4"><Text id="_IDGenText7" text="Batch" /></Column>
+                                <Column id="_IDGenColumn5"><Text id="_IDGenText8" text="Shift" /></Column>
+                                <Column id="_IDGenColumn6"><Text id="_IDGenText9" text="Material Number" /></Column>
+                                <Column id="_IDGenColumn7"><Text id="_IDGenText10" text="Amount" /></Column>
+                                <Column id="_IDGenColumn8"><Text id="_IDGenText11" text="Created Date and Time" /></Column>
+                            </columns>
+
+                            <!-- Filas -->
+                            <items>
+                                <ColumnListItem id="_IDGenColumnListItem">
+                                    <ObjectIdentifier id="_IDGenObjectIdentifier" title="{HU}" />
+
+                                    <core:Icon id="_IDGenIcon4"
+                                    src="sap-icon://circle-task-2"
+                                    size="0.9rem"
+                                    color="{path: 'HuCreatedMill', formatter: '.statusColorFormatter'}" />
+
+                                    <core:Icon id="_IDGenIcon5"
+                                    src="sap-icon://circle-task-2"
+                                    size="0.9rem"
+                                    color="{path: 'HuCreatedSap', formatter: '.statusColorFormatter'}" />
+
+                                    <core:Icon id="_IDGenIcon6"
+                                    src="sap-icon://circle-task-2"
+                                    size="0.9rem"
+                                    color="{path: 'GrInSap', formatter: '.statusColorFormatter'}" />
+
+                                    <Text id="_IDGenText12" text="{Batch}" />
+                                    <Text id="_IDGenText13" text="{Shift}" />
+                                    <Text id="_IDGenText14" text="{MaterialNumber}" />
+                                    <Text id="_IDGenText15" text="{Amount}" />
+                                    <Text id="_IDGenText16" text="{CreatedOn}" />
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </Panel>
+
+                    <Panel id="_IDGenPanel3">
+                        <VBox id="_IDGenVBox" class="sapUiSmallMarginTop">
+                            <!-- Leyenda -->
+                            <HBox id="_IDGenHBox4" alignItems="Center" wrap="Wrap">
+                                <Text id="_IDGenText17" text="Legend:" class="sapUiTinyMarginEnd"/>
+
+                                <HBox id="_IDGenHBox5" alignItems="Center" class="sapUiTinyMarginBegin">
+                                    <core:Icon id="_IDGenIcon" src="sap-icon://circle-task-2" color="#107e3e" size="0.9rem"
+                                    class="sapUiTinyMarginEnd"/>
+                                    <Text id="_IDGenText18" text="HU Created in SAP" />
+                                </HBox>
+
+                                <HBox id="_IDGenHBox6" alignItems="Center" class="sapUiTinyMarginBegin">
+                                    <core:Icon id="_IDGenIcon1" src="sap-icon://circle-task-2" color="#e9730c" size="0.9rem"
+                                    class="sapUiTinyMarginEnd"/>
+                                    <Text id="_IDGenText19" text="HU Processing in SAP" />
+                                </HBox>
+
+                                <HBox id="_IDGenHBox7" alignItems="Center" class="sapUiTinyMarginBegin">
+                                    <core:Icon id="_IDGenIcon2" src="sap-icon://circle-task-2" color="#bb0000" size="0.9rem"
+                                    class="sapUiTinyMarginEnd"/>
+                                    <Text id="_IDGenText20" text="HU Not created in SAP" />
+                                </HBox>
+                                </HBox>
+
+                            <!-- Backup Printer y botones -->
+                            <HBox id="_IDGenHBox2" class="sapUiSmallMarginTop" alignItems="Center">
+                                <Label id="_IDGenLabel" text="Backup Printer" labelFor="backupPrinter"/>
+                                <Select id="backupPrinter"
+                                        selectedKey="{/BackupPrinter}"
+                                        width="200px" items="{
+                                        path: '/Catalogs/Printers'
+                                    }">
+                                <core:Item id="_IDGenItem2" key="{key}" text="{text}" />
+                                </Select>
+
+                                <Button id="_IDGenButton1" text="Reprint HU" press=".onReprint" />
+                                <Button id="_IDGenButton2" text="Generate HUs" press="onOpenInsertHuDialog" />
+
+                                <CheckBox id="_IDGenCheckBox1" text="Partial Pallet" selected="{/PartialPallet}" />
+                                <Label id="_IDGenLabel6" text="Quantity per pallet" />
+                                <Input id="_IDGenInput2" width="60px" value="{/QtyPerPallet}" />
+
+                                <Button id="_IDGenButton3" text="Resend HU to SAP" press=".onResend" />
+                            </HBox>
+
+                            <!-- Comentario -->
+                            <HBox id="_IDGenHBox3" class="sapUiSmallMarginTop" alignItems="Center">
+                                <Label id="_IDGenLabel7" text="Comment" />
+                                <TextArea id="_IDGenTextArea"
+                                    width="400px"
+                                    rows="2"
+                                    value="{/Comment}" />
+                                <Button id="_IDGenButton4" text="Add Comment" press=".onAddComment" />
+                            </HBox>
+                        </VBox>
+                    </Panel>
+            </VBox>
+        </content>
+    </Page>
+    <Dialog
+        id="dlgInsertHu"
+        title="Insert HU"
+        draggable="true"
+        resizable="true">
+        <content>
+            <VBox id="_IDGenVBox3" class="sapUiSmallMargin" width="100%">
+
+            <Label id="_IDGenLabel9" text="HU" />
+            <Input id="inHu" width="100%" />
+
+            <HBox id="_IDGenHBox1" width="100%" class="sapUiTinyMarginTop">
+                <VBox id="_IDGenVBox4" width="50%" class="sapUiTinyMarginEnd">
+                <Label id="_IDGenLabel10" text="HUMII" />
+                <Input id="inHumii" type="Number" />
+                </VBox>
+                <VBox id="_IDGenVBox5" width="50%">
+                <Label id="_IDGenLabel11" text="AMOUNT" />
+                <Input id="inAmount" type="Number" />
+                </VBox>
+            </HBox>
+
+            <HBox id="_IDGenHBox8" width="100%" class="sapUiTinyMarginTop">
+                <VBox id="_IDGenVBox6" width="50%" class="sapUiTinyMarginEnd">
+                <Label id="_IDGenLabel12" text="HUSAP (0/1)" />
+                <Input id="inHusap" type="Number" placeholder="0 o 1" />
+                </VBox>
+                <VBox id="_IDGenVBox7" width="50%">
+                <Label id="_IDGenLabel13" text="GRSAP (0/1)" />
+                <Input id="inGrsap" type="Number" placeholder="0 o 1" />
+                </VBox>
+            </HBox>
+
+            <HBox id="_IDGenHBox9" width="100%" class="sapUiTinyMarginTop">
+                <VBox id="_IDGenVBox8" width="50%" class="sapUiTinyMarginEnd">
+                <Label id="_IDGenLabel14" text="BATCH" />
+                <Input id="inBatch" />
+                </VBox>
+                <VBox id="_IDGenVBox9" width="50%">
+                <Label id="_IDGenLabel15" text="SHIFT" />
+                <Input id="inShift" />
+                </VBox>
+            </HBox>
+
+            <HBox id="_IDGenHBox10" width="100%" class="sapUiTinyMarginTop">
+                <VBox id="_IDGenVBox10" width="50%" class="sapUiTinyMarginEnd">
+                <Label id="_IDGenLabel16" text="MATERIAL" />
+                <Input id="inMaterial" />
+                </VBox>
+                <VBox id="_IDGenVBox11" width="50%">
+                <Label id="_IDGenLabel17" text="DATE (DD-MM-YYYY HH:mm:ss)" />
+                <Input id="inDate" placeholder="06-02-2026 11:18:00" />
+                </VBox>
+            </HBox>
+
+            <HBox id="_IDGenHBox11" width="100%" class="sapUiTinyMarginTop">
+                <VBox id="_IDGenVBox12" width="50%" class="sapUiTinyMarginEnd">
+                <Label id="_IDGenLabel18" text="ORDEN" />
+                <Input id="inOrden" />
+                </VBox>
+                <VBox id="_IDGenVBox13" width="50%">
+                <Label id="_IDGenLabel19" text="PUESTO_TRABAJO" />
+                <Input id="inPuestoTrabajo" placeholder="LINEA 2" />
+                </VBox>
+            </HBox>
+
+            </VBox>
+        </content>
+
+        <beginButton>
+            <Button id="_IDGenButton5" text="Submit" type="Emphasized" press="onSubmitInsertHu" />
+        </beginButton>
+        <endButton>
+            <Button id="_IDGenButton6" text="Cancel" press=".onCloseInsertHuDialog" />
+        </endButton>
+    </Dialog>
+    
+</mvc:View>

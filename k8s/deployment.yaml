@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: democolgate-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: democolgate-demo
+  template:
+    metadata:
+      labels:
+        app: democolgate-demo
+    spec:
+      containers:
+        - name: demo
+          image: ghcr.io/<ORG_O_USER>/<REPO>:<TAG>
+          ports:
+            - containerPort: 80

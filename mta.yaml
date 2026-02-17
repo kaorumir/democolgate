@@ -1,0 +1,55 @@
+_schema-version: "3.2"
+ID: demoColgate
+version: 0.0.1
+
+modules:
+  # UI5 static app (solo para servir archivos, SIN ruta pública)
+  - name: democolgate-ui5
+    type: application
+    path: demo
+    parameters:
+      memory: 128M
+      buildpacks:
+        - staticfile_buildpack
+      
+    build-parameters:
+      builder: custom
+      commands:
+        - npm ci
+        - npm run build
+        - bash -c 'rm -rf app && mkdir -p app && cp -R dist/* app/'
+        - bash -c 'test -f app/Staticfile || touch app/Staticfile'
+      build-result: app
+
+  # Approuter (ruta pública)
+  - name: democolgate-approuter
+    type: approuter.nodejs
+    path: approuter
+    requires:
+      - name: democolgate-xsuaa
+      - name: democolgate-destination
+    parameters:
+      memory: 128M
+    build-parameters:
+      builder: npm
+  - name: democolgate-proxy
+    type: nodejs
+    path: proxy
+    parameters:
+      memory: 128M
+    build-parameters:
+      builder: npm
+
+resources:
+  - name: democolgate-xsuaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+
+  - name: democolgate-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite

@@ -1,0 +1,2 @@
+sap.ui.define(["demo/demo/controller/View1.controller"],function(e){"use strict";QUnit.module("View1 Controller");QUnit.test("I should test the View1 controller",function(o){var t=new e;t.onInit();o.ok(t)})});
+//# sourceMappingURL=View1.controller.js.map

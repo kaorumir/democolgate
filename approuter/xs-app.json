@@ -1,0 +1,19 @@
+{
+  "welcomeFile": "/ui5/index.html",
+  "authenticationMethod": "route",
+  "routes": [
+    {
+      "source": "^/ui5/(.*)$",
+      "destination": "ui5_static",
+      "target": "/$1",
+      "authenticationType": "none"
+    },
+    {
+      "source": "^/api/(.*)$",
+      "destination": "proxy_api",
+      "target": "/api/$1",
+      "authenticationType": "none",
+      "csrfProtection": false
+    }
+  ]
+}
